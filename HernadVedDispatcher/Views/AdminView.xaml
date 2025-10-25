@@ -1,0 +1,13 @@
+<Window x:Class="HernadVedDispatcher.Views.AdminView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Hernád-Véd - Admin" Height="450" Width="800">
+    <Grid Margin="10">
+        <StackPanel>
+            <TextBlock x:Name="WelcomeText" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+            <Button x:Name="RefreshCustomersButton" Content="Ügyfelek frissítése" Click="RefreshCustomersButton_Click" Width="180" Margin="0,0,0,10"/>
+            <DataGrid x:Name="CustomersGrid" AutoGenerateColumns="True" Height="250"/>
+            <TextBlock x:Name="StatusText" Foreground="Gray" Margin="0,10,0,0"/>
+        </StackPanel>
+    </Grid>
+</Window>
