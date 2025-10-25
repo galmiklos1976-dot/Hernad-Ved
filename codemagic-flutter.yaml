@@ -1,0 +1,38 @@
+workflows:
+  flutter-android-release:
+    name: Build Flutter Android APK (release)
+    environment:
+      flutter: stable
+      vars:
+        KEYSTORE_BASE64:
+          value: ""
+          secure: true
+        KEY_ALIAS:
+          value: ""
+          secure: true
+        KEY_PASSWORD:
+          value: ""
+          secure: true
+        STORE_PASSWORD:
+          value: ""
+          secure: true
+    scripts:
+      - name: Decode keystore
+        script: |
+          echo "$KEYSTORE_BASE64" | base64 --decode > android/app/my-release-key.jks
+      - name: Create key.properties
+        script: |
+          cat > android/key.properties <<EOF
+          storePassword=$STORE_PASSWORD
+          keyPassword=$KEY_PASSWORD
+          keyAlias=$KEY_ALIAS
+          storeFile=app/my-release-key.jks
+          EOF
+      - name: Install dependencies
+        script: |
+          flutter pub get
+      - name: Build release APK
+        script: |
+          flutter build apk --release --no-shrink
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
